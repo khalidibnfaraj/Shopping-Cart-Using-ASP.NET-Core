@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using myShop.Web.Data;
+
 namespace myShop.Web
 {
     public class Program
@@ -9,6 +12,9 @@ namespace myShop.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection")
+            ));
 
             var app = builder.Build();
 
