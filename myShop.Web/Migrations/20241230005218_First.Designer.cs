@@ -12,7 +12,7 @@ using myShop.Web.Data;
 namespace myShop.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241230003222_First")]
+    [Migration("20241230005218_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,7 @@ namespace myShop.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categories");
+                    b.ToTable("Categories");
                 });
 #pragma warning restore 612, 618
         }

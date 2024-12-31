@@ -10,6 +10,6 @@ namespace myShop.Web.Data
 
         }
 
-        public DbSet<Category> categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
