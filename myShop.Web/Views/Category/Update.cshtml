@@ -1,10 +1,10 @@
 ﻿@model Category
 
 @{
-    ViewData["Title"] = "Update";
+    ViewBag.PageTitle = "Category Management";
+    ViewBag.CardTitle = "Update Category";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
-
-<h1>Update</h1>
 
 <form asp-action="Update" method="post">
     <input hidden asp-for="Id"/>

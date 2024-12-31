@@ -1,16 +1,19 @@
 ﻿@model List<Category>
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.PageTitle = "Categories Page";
+    ViewBag.CardTitle = "Categories List";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
-
-<h1>Index</h1>
+<div>
 <a href="/Category/Create" class="btn btn-success">Add New</a>
-<br />
+<div/>
+<br/>
 <table class="table table-hover" width="100%">
     <tr>
         <th>Name</th>
         <th>Describtion</th>
         <th>Date Created</th>
+        <th>Operations</th>
     </tr>
     @foreach (var item in Model)
     {
