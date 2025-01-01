@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using myShop.Web.Data;
-using myShop.Web.Models;
+using myShop.DataAccess.Data;
+using myShop.Entities.Models;
 using System.Runtime.ConstrainedExecution;
 
 namespace myShop.Web.Controllers
