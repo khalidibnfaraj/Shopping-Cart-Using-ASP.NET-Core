@@ -4,6 +4,7 @@
     ViewBag.CardTitle = "Categories List";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
+
 <div>
 <a href="/Category/Create" class="btn btn-success">Add New</a>
 <div/>
@@ -22,7 +23,7 @@
             <td>@item.Description</td>
             <td>@item.CreatedTime</td>
             <td>
-                <a href="/Category/Update/@item.Id" class="btn btn-success">Update</a>
+                <a href="/Category/Update/@item.Id" class="btn btn-info">Update</a>
                 <a href="/Category/Delete/@item.Id" class="btn btn-danger">Delete</a>
 
             </td>
