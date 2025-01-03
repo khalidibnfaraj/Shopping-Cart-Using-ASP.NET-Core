@@ -5,8 +5,9 @@ using myShop.Entities.Models;
 using myShop.Entities.Repositories;
 using System.Runtime.ConstrainedExecution;
 
-namespace myShop.Web.Controllers
+namespace myShop.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private IUnitOfWork unitOfWork;
@@ -16,7 +17,7 @@ namespace myShop.Web.Controllers
         }
         public IActionResult Index()
         {
-            var categories =unitOfWork.Category.GetAll();
+            var categories = unitOfWork.Category.GetAll();
             return View(categories);
         }
 
@@ -42,13 +43,13 @@ namespace myShop.Web.Controllers
         [HttpGet]
         public IActionResult Update(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 NotFound();
             }
-            Category category = unitOfWork.Category.GetFirstOrDefault(c=>c.Id == id);
+            Category category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
             return View(category);
-            
+
         }
 
         [HttpPost]
@@ -81,7 +82,7 @@ namespace myShop.Web.Controllers
         {
             Category category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id); ;
 
-            if(category == null)
+            if (category == null)
             {
                 NotFound();
             }
