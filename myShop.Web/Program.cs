@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using myShop.Entities.Models;
 using myShop.DataAccess.Data;
+using myShop.Entities.Repositories;
+using myShop.DataAccess.RepositoriesImplementation;
 
 namespace myShop.Web
 {
@@ -16,7 +18,7 @@ namespace myShop.Web
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
             builder.Configuration.GetConnectionString("DefaultConnection")
             ));
-
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
