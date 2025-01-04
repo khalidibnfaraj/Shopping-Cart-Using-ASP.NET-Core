@@ -1,6 +1,6 @@
 ﻿namespace myShop.Entities.Models;
 
-public class Category
+public class IEnumerable
 {
     public int Id { get; set; } 
     public string Name { get; set; }

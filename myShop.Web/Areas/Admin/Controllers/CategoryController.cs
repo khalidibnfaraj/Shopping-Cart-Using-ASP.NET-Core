@@ -28,7 +28,7 @@ namespace myShop.Web.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category ctr)
+        public IActionResult Create(IEnumerable ctr)
         {
             if (ModelState.IsValid)
             {
@@ -47,14 +47,14 @@ namespace myShop.Web.Areas.Admin.Controllers
             {
                 NotFound();
             }
-            Category category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
+            IEnumerable category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
             return View(category);
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Category ctr)
+        public IActionResult Update(IEnumerable ctr)
         {
             if (ModelState.IsValid)
             {
@@ -74,13 +74,13 @@ namespace myShop.Web.Areas.Admin.Controllers
                 NotFound();
             }
 
-            Category category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
+            IEnumerable category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
             return View(category);
         }
         [HttpPost]
         public IActionResult DeleteCategory(int id)
         {
-            Category category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id); ;
+            IEnumerable category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id); ;
 
             if (category == null)
             {
