@@ -30,6 +30,7 @@ namespace myShop.DataAccess.RepositoriesImplementation
                 ProductIdinDb.Description = product.Description;
                 ProductIdinDb.Image = product.Image;
                 ProductIdinDb.Price = product.Price;
+                ProductIdinDb.CategoryId = product.CategoryId;  
             }
         }
     }

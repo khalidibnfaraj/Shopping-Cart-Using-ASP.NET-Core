@@ -19,10 +19,18 @@ namespace myShop.Web.Areas.Admin.Controllers
             this.unitOfWork = unitOfWork;
             this.webHostEnvironment = webHostEnvironment;
         }
+        [HttpGet]
+
         public IActionResult Index()
         {
-            var products = unitOfWork.Product.GetAll();
-            return View(products);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetData()
+        {
+            var products = unitOfWork.Product.GetAll(includeValue: "Category");
+            return Json(new { data = products });
         }
 
         [HttpGet]
@@ -55,13 +63,12 @@ namespace myShop.Web.Areas.Admin.Controllers
 
                     string ImageFileFullPath = Path.Combine(filePath, uniqueFileName);
 
-                    var FileStreamPlace = new FileStream(ImageFileFullPath, FileMode.Create);
-                    using (FileStreamPlace)
+                    using (var FileStreamPlace = new FileStream(ImageFileFullPath, FileMode.Create))
                     {
                         Imgfile.CopyTo(FileStreamPlace);
                     }
 
-                    productVM.Product.Image = @"Images\Products" + uniqueFileName;
+                    productVM.Product.Image = @"Images\Products\" + uniqueFileName;
                 }
 
                     unitOfWork.Product.Add(productVM.Product);
@@ -80,49 +87,81 @@ namespace myShop.Web.Areas.Admin.Controllers
             {
                 NotFound();
             }
-            Product product = unitOfWork.Product.GetFirstOrDefault(c => c.Id == id);
-            return View(product);
-
+            
+            ProductVM productVM = new ProductVM()
+            {
+                Product = unitOfWork.Product.GetFirstOrDefault(c => c.Id == id),
+                CategoryList = unitOfWork.Category.GetAll().Select(sli => new SelectListItem()
+                {
+                    Text = sli.Name,
+                    Value = sli.Id.ToString()
+                })
+            };
+            return View(productVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Product productVM)
+        public IActionResult Update(ProductVM productVM, IFormFile? Imgfile)
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.Product.Update(productVM);
-                unitOfWork.Complete();
-                TempData["Update"] = "Product has updated successfully";
-                return RedirectToAction("Index");
+                string RootPath = webHostEnvironment.WebRootPath;
+                if (ModelState.IsValid)
+                {
+                    if (Imgfile != null)
+                    {
+                        string uniqueFilePath = Guid.NewGuid().ToString();
+                        string ImgfileExtension = Path.GetExtension(Imgfile.FileName);
+                        string uniqueFileName = uniqueFilePath + ImgfileExtension;
+                        string filePath = Path.Combine(RootPath, @"Images\Products");
+                        string ImageFileFullPath = Path.Combine(filePath, uniqueFileName);
+
+                        if (productVM.Product.Image != null)
+                        {
+                            var oldImg = Path.Combine(RootPath, productVM.Product.Image.TrimStart('\\'));
+                          
+                            if (System.IO.File.Exists(oldImg))
+                            {
+                                System.IO.File.Delete(oldImg);
+                            }
+                            
+                        }
+
+                        using (var FileStreamPlace = new FileStream(ImageFileFullPath, FileMode.Create))
+                        {
+                            Imgfile.CopyTo(FileStreamPlace);
+                        }
+
+                        productVM.Product.Image = @"Images\Products\" + uniqueFileName;
+                    }
+                    unitOfWork.Product.Update(productVM.Product);
+                    unitOfWork.Complete();
+                    TempData["Update"] = "Product has updated successfully";
+                    return RedirectToAction("Index");
+                }
             }
-            return View("Update");
+            return View(productVM.Product);
         }
 
-        [HttpGet]
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
-            {
-                NotFound();
-            }
+            Product productInDb = unitOfWork.Product.GetFirstOrDefault(c => c.Id == id); ;
 
-            Product product = unitOfWork.Product.GetFirstOrDefault(c => c.Id == id);
-            return View(product);
-        }
-        [HttpPost]
-        public IActionResult DeleteProduct(int id)
-        {
-            Product product = unitOfWork.Product.GetFirstOrDefault(c => c.Id == id); ;
-
-            if (product == null)
+            if (productInDb == null)
             {
-                NotFound();
+                return Json(new { success = false, message="Error while Deleting..." });
             }
-            unitOfWork.Product.Remove(product);
+            unitOfWork.Product.Remove(productInDb);
+            var oldImg = Path.Combine(webHostEnvironment.WebRootPath,productInDb.Image.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImg))
+            {
+                System.IO.File.Delete(oldImg);
+            }
             unitOfWork.Complete();
-            TempData["Delete"] = "Product has deleted successfully";
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "File has been deleted" });
         }
     }
 }
