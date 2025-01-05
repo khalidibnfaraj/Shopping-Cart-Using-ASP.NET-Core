@@ -16,7 +16,7 @@ namespace myShop.Entities.Models
         public string Name { get; set; }
         public string Description { get; set; }
         [Required]
-        public decimal Price { get; set; } = 0;
+        public decimal Price { get; set; }
         [DisplayName("Image")]
         [ValidateNever]
         public string Image { get; set; } 
@@ -25,6 +25,6 @@ namespace myShop.Entities.Models
         public int CategoryId { get; set; }
         [ValidateNever]
 
-        public IEnumerable Category { get; set; }
+        public Category Category { get; set; }
     }
 }

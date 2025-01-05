@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace myShop.DataAccess.RepositoriesImplementation
 {
-    public class CategoryRepository : GenericRepository<IEnumerable>, ICategoryRepository
+    public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {
         private readonly ApplicationDbContext _context;
-        private DbSet<IEnumerable> _categories;
+        private DbSet<Category> _categories;
 
         public CategoryRepository(ApplicationDbContext _context) : base(_context)
         {
             this._context = _context;
-            _categories= _context.Set<IEnumerable>();
+            _categories= _context.Set<Category>();
         }
 
-        public void Update(IEnumerable category)
+        public void Update(Category category)
         {
             var CategoryIdinDb = _categories.FirstOrDefault(c=>c.Id == category.Id);
             if (CategoryIdinDb != null)

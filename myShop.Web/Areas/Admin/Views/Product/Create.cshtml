@@ -2,7 +2,6 @@
 @{
     ViewBag.PageTitle = "Product Management";
     ViewBag.CardTitle = "Create Product";
-    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 <!--<partial name="_ToasterPartial"></partial>-->
 
@@ -24,7 +23,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Product.Image" class="control-label"></label>
-        <input type="file" name="Imgfile" id="Imgfile" asp-for="Product.Image" class="form-control" />
+        <input type="file" name="Imgfile" id="Imgfile" asp-for="Product.Image" class="form-control"/>
     </div>
     <div class="form-group">
         <label asp-for="Product.CategoryId" class="control-label"></label>

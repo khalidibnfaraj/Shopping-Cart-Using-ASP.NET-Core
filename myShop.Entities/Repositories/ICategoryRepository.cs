@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace myShop.Entities.Repositories
 {
-    public interface ICategoryRepository : IGenericRepository<IEnumerable>
+    public interface ICategoryRepository : IGenericRepository<Category>
     {
-        void Update(IEnumerable category);
+        void Update(Category category);
     }
 }
