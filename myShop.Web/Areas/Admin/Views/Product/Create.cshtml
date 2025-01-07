@@ -4,7 +4,8 @@
     ViewBag.CardTitle = "Create Product";
 }
 <!--<partial name="_ToasterPartial"></partial>-->
-
+<div class="row">
+    <div class="col-md-4">
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Product.Name" class="control-label"></label>
@@ -35,9 +36,10 @@
         <button type="submit" class="btn btn-primary">Create</button>
         <!--<a asp-controller="Category" asp-action="Index" class="btn btn-outline-info">Back to list</a>-->
     </div>
-
-
 </form>
+    </div>
+</div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

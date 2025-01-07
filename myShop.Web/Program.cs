@@ -3,6 +3,7 @@ using myShop.Entities.Models;
 using myShop.DataAccess.Data;
 using myShop.Entities.Repositories;
 using myShop.DataAccess.RepositoriesImplementation;
+using Microsoft.AspNetCore.Identity;
 
 namespace myShop.Web
 {
@@ -18,6 +19,8 @@ namespace myShop.Web
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
             builder.Configuration.GetConnectionString("DefaultConnection")
             ));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             var app = builder.Build();
 
@@ -31,6 +34,7 @@ namespace myShop.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
