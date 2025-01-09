@@ -4,6 +4,8 @@ using myShop.DataAccess.Data;
 using myShop.Entities.Repositories;
 using myShop.DataAccess.RepositoriesImplementation;
 using Microsoft.AspNetCore.Identity;
+using myShop.Utilities;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace myShop.Web
 {
@@ -20,7 +22,11 @@ namespace myShop.Web
             builder.Configuration.GetConnectionString("DefaultConnection")
             ));
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(24))
+                .AddDefaultTokenProviders().AddDefaultUI()
+                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddSingleton<IEmailSender, EmailSender>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             var app = builder.Build();
 
