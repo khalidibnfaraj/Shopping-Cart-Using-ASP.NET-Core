@@ -1,4 +1,6 @@
-﻿using myShop.DataAccess.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using myShop.DataAccess.Data;
+using myShop.Entities.Models;
 using myShop.Entities.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,8 +19,7 @@ namespace myShop.DataAccess.RepositoriesImplementation
         public IShoppingCartRepository ShoppingCart { get; private set; }
 
 
-
-        public UnitOfWork(ApplicationDbContext context)
+		public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Category = new CategoryRepository(context);
@@ -36,5 +37,7 @@ namespace myShop.DataAccess.RepositoriesImplementation
         {
             _context.Dispose();
         }
-    }
+
+		
+	}
 }

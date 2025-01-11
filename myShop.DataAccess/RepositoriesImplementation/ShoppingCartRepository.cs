@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace myShop.DataAccess.RepositoriesImplementation
 {
-    public class ShoppingCartRepository : GenericRepository<ShoppingCart>, IShoppingCartRepository
+	public class ShoppingCartRepository : GenericRepository<ShoppingCart>, IShoppingCartRepository
     {
         private readonly ApplicationDbContext _context;
         private DbSet<ShoppingCart> _shoppingCarts;
@@ -19,6 +19,26 @@ namespace myShop.DataAccess.RepositoriesImplementation
         {
             this._context = _context;
             _shoppingCarts= _context.Set<ShoppingCart>();
+        }
+
+		
+
+		public int DecreaseCount(ShoppingCart shoppingCart, int count)
+		{
+			shoppingCart.count -= count;
+			return shoppingCart.count;
+		}
+
+		public int IncreaseCount(ShoppingCart shoppingCart, int count)
+		{
+			shoppingCart.count += count;
+			return shoppingCart.count;
+		}
+
+		public int UpdateCount(ShoppingCart shoppingCart, int count)
+        {
+            shoppingCart.count = count;
+            return shoppingCart.count;
         }
     }
 }
