@@ -1,4 +1,5 @@
-﻿using System;
+﻿using myShop.Entities.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,12 @@ namespace myShop.Entities.Repositories
         IProductRepository Product { get; }
         IShoppingCartRepository ShoppingCart { get; }
 
-        int Complete();
+		IOrderHeaderRepository OrderHeader { get; }
+        IOrderDetailsRepository OrderDetails { get; }
+
+        IApplicationUserRepository ApplicationUser { get; }
+
+		int Complete();
 
     }
 }

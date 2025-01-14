@@ -11,5 +11,7 @@ namespace myShop.Entities.ViewModels
     {
         public IEnumerable<ShoppingCart> ShoppingCarts {  get; set; } 
         public decimal TotalCardsPrice { get; set; }
-    }
+		public OrderHeader OrderHeader { get; set; }
+
+	}
 }

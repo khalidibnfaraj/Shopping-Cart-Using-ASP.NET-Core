@@ -1,82 +1,101 @@
 ﻿@model ShoppingCartVM
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Shopping Cart</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" ">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	<link rel="stylesheet" href="~/shoppingcart/style.css">
-</head>
-<body>
-	<main class="page">
-		<section class="shopping-cart dark">
-			<div class="container">
-				<div class="block-heading">
-					<h2>Shopping Cart</h2>
-				</div>
-				<div class="content">
-					<div class="row">
-						<div class="col-md-12 col-lg-8">
-							<div class="items">
-								@foreach(var item in Model.ShoppingCarts)
-								{
-									<div class="product">
-										<div class="row">
-											<div class="col-md-3">
-												<img class="img-fluid mx-auto d-block image" src="~/@item.Product.Image">
-											</div>
-											<div class="col-md-8">
-												<div class="info">
-													<div class="row">
-														<div class="col-md-5 product-name">
-															<div class="product-name">
-																<a href="#">@item.Product.Name</a>
-																<div class="product-info">
-																	<div>Description: <span class="value">@item.Product.Description</span></div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-4 quantity">
-															<label for="quantity">Quantity:</label>
-															<div class="btn-group" role="group">
-																<a class="btn btn-primary" asp-action="Plus" asp-route-cartid="@item.Id">+</a>
-																<span style="margin:5px">@item.count</span>
-																<a class="btn btn-primary" asp-action="Minus" asp-route-cartid="@item.Id">-</a>
-															</div>
-														</div>
-														<div class="col-md-3 price">
-															<span>$@item.Product.Price</span>
-														</div>
-														<div class="col-md-4">
-															<a asp-action="Remove" asp-route-cartId="@item.Id" class="btn btn-danger">Delete</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
 
-								}
-							</div>
-						</div>
-						<div class="col-md-12 col-lg-4">
-							<div class="summary">
-								<h3>Summary</h3>
-								@* <div class="summary-item"><span class="text">Subtotal</span><span class="price">$360</span></div>
-								<div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div>
-								<div class="summary-item"><span class="text">Shipping</span><span class="price">$0</span></div> *@
-								<div class="summary-item"><span class="text">Total</span><span class="price">$@Model.TotalCardsPrice</span></div>
-								<button type="button" class="btn btn-primary btn-lg btn-block">Checkout</button>
-							</div>
-						</div>
+
+<form method="post">
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class="row">
+					<div class="col-6  pt-2">
+						<i class="fas fa-shopping-cart"></i> &nbsp;
+						Shopping Cart
+					</div>
+					<div class="col-6 text-end">
+						<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-light btn-sm">Continue Shopping</a>
 					</div>
 				</div>
 			</div>
-		</section>
-	</main>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+			<div class="card-body">
+				@if (Model.ShoppingCarts.Count() < 1)
+				{
+					<h4>There is no Items in Your Cart</h4>
+				}
+				else
+				{
+					@foreach (var item in Model.ShoppingCarts)
+					{
+						<div class="row">
+							<div class="d-none d-lg-block col-lg-1 text-center py-2">
+								<img src="~/@item.Product.Image" class="rounded" width="100%" />
+							</div>
+							<div class="col-12 col-lg-6 pt-md-3">
+								<h5><strong>@item.Product.Name</strong></h5>
+								<p><small>@Html.Raw(item.Product.Description)</small></p>
+							</div>
+							<div class="col-12  col-lg-5 text-center row">
+								<div class="col-4 text-md-right pt-4">
+									<h6>
+										<strong>
+											@item.Product.Price.ToString("c")
+											<span class="text-muted">&nbsp;x&nbsp;</span>@item.count
+										</strong>
+									</h6>
+								</div>
+								<div class="col-6 col-sm-4 col-lg-6 pt-2">
+									<div class="w-75 btn-group" role="group">
+										<a asp-action="plus" asp-route-cartId="@item.Id" class="btn btn-dark">
+											<i class="bi bi-plus-square"></i>
+										</a> &nbsp;
+										<a asp-action="minus" asp-route-cartId="@item.Id" class="btn btn-dark">
+											<i class="bi bi-dash-square"></i>
+										</a>
+									</div>
+
+								</div>
+								<div class="col-2 col-sm-4 col-lg-2 text-right pt-2">
+									<a asp-action="remove" asp-route-cartId="@item.Id" class="btn btn-danger">
+										<i class="bi bi-trash-fill"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+						<hr />
+					}
+					<div class="row">
+						<div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
+							<ul class="list-group">
+								<li class="list-group-item d-flex justify-content-between bg-light">
+									<span class="text-dark"> Total (USD)</span>
+									<strong class="text-dark">@Model.OrderHeader.TotalPrice.ToString("c")</strong>
+								</li>
+							</ul>
+						</div>
+					</div>
+				}
+
+
+			</div>
+			@if (Model.ShoppingCarts.Count() != 0)
+			{
+				<div class="card-footer">
+
+					<div class="card-footer row">
+
+						<div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+							<a asp-action="Summary" class="btn btn-primary form-control">Summary</a>
+						</div>
+
+					</div>
+
+				</div>
+			}
+		</div>
+	</div>
+	<br />
+</form>
+
+
+
+
