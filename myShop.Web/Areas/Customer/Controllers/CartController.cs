@@ -108,7 +108,7 @@ namespace myshop.Web.Areas.Customer.Controllers
 				_unitOfWork.Complete();
 			}
 
-			var domain = "https://localhost:24442/";
+			var domain = "http://localhost:24442/";
 			var options = new SessionCreateOptions
 			{
 				LineItems = new List<SessionLineItemOptions>(),
