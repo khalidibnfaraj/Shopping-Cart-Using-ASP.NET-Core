@@ -5,6 +5,8 @@
     ViewBag.CardTitle = "Update Category";
 }
 <!--<partial name="_ToasterPartial" />-->
+<div class="row">
+    <div class="col-md-5">
 <form asp-action="Update" method="post">
     <input hidden asp-for="Id"/>
     <div class="mb-3">
@@ -14,7 +16,7 @@
     </div>
     <div class="mb-3">
         <lable asp-for="Description"></lable>
-        <input asp-for="Description" class="form-control" />
+        <textarea id="mytextarea" asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
 
     </div>
@@ -23,6 +25,8 @@
         <a asp-controller="Category" asp-action="Index" class="btn btn-outline-info">Back to list</a>
     </div>
 </form>
+</div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -4,7 +4,9 @@ using myShop.DataAccess.RepositoriesImplementation;
 using myShop.Entities.Models;
 using myShop.Entities.Repositories;
 using myShop.Entities.ViewModels;
+using myShop.Utilities;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace myShop.Web.Areas.Customer.Controllers
 {
@@ -16,22 +18,29 @@ namespace myShop.Web.Areas.Customer.Controllers
         {
             this.unitOfWork = unitOfWork;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            var products = unitOfWork.Product.GetAll();
+            var PageNumber = page ?? 1;
+            int PageSize = 3;
+
+
+            var products = unitOfWork.Product.GetAll().ToPagedList(PageNumber, PageSize);
             return View(products);
         }
 
-
-        public IActionResult Details(int ProductId)
+        [HttpGet]
+        public IActionResult Details(int id)
         {
-            ShoppingCart shippingCardDetails = new ShoppingCart()
+            var product = unitOfWork.Product.GetFirstOrDefault(x => x.Id == id, includeValue: "Category");
+            var productId = product.Id;
+            ShoppingCart obj = new ShoppingCart()
             {
-                ProductId = ProductId,
-                Product = unitOfWork.Product.GetFirstOrDefault(p => p.Id == ProductId, includeValue: "Category"),
+                ProductId = productId,
+                Product = product,
                 count = 1
             };
-            return View(shippingCardDetails);
+
+            return View(obj);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -48,12 +57,17 @@ namespace myShop.Web.Areas.Customer.Controllers
             if (changedCardCount == null)
             {
                 unitOfWork.ShoppingCart.Add(shoppingCart);
-            }
-            else { 
-              unitOfWork.ShoppingCart.UpdateCount(changedCardCount, shoppingCart.count); 
-            }
+                unitOfWork.Complete();
+                HttpContext.Session.SetInt32(SD.SessionKey,
+                    unitOfWork.ShoppingCart.GetAll(x => x.ApplicationUserId == claim.Value).ToList().Count()
+                   );
 
-            unitOfWork.Complete();
+            }
+            else
+            {
+                unitOfWork.ShoppingCart.IncreaseCount(changedCardCount, shoppingCart.count);
+                unitOfWork.Complete();
+            }
 
             return RedirectToAction("Index");
         }

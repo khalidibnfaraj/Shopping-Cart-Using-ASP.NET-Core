@@ -10,6 +10,7 @@ using myShop.DataAccess.Data;
 using myShop.DataAccess.RepositoriesImplementation;
 using myShop.Entities.Repositories;
 using myShop.Utilities;
+using myShop.Entities.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(
 	options => options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(4)
 	).AddDefaultTokenProviders().AddDefaultUI()
 	.AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
 
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
@@ -64,5 +68,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
 	name: "Customer",
 	pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();

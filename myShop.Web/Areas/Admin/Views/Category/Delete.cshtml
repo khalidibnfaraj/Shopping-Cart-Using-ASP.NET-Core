@@ -5,15 +5,16 @@
 }
 <!--<partial name="_ToasterPartial"/>-->
 
-
-<form asp-action="DeleteCategory" method="post">
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="DeleteCategory" method="post">
     <input hidden asp-for="Id" />
     <div class="mb-3">
-        <lable asp-for="Name"></lable>
+        <label asp-for="Name"></label>
         <input asp-for="Name" disabled class="form-control" />
     </div>
     <div class="mb-3">
-        <lable asp-for="Description"></lable>
+        <label asp-for="Description"></label>
         <input asp-for="Description" disabled class="form-control" />
     </div>
     <div>
@@ -21,4 +22,7 @@
         <a asp-controller="Category" asp-action="Index" class="btn btn-outline-info">Back to list</a>
     </div>
 </form>
+
+    </div>
+</div>
 
