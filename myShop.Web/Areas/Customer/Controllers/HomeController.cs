@@ -28,20 +28,22 @@ namespace myShop.Web.Areas.Customer.Controllers
             return View(products);
         }
 
+
+       
         [HttpGet]
-        public IActionResult Details(int id)
+        [Authorize]
+        public IActionResult Details(int ProductId)
         {
-            var product = unitOfWork.Product.GetFirstOrDefault(x => x.Id == id, includeValue: "Category");
-            var productId = product.Id;
             ShoppingCart obj = new ShoppingCart()
             {
-                ProductId = productId,
-                Product = product,
+                ProductId = ProductId,
+                Product = unitOfWork.Product.GetFirstOrDefault(p=> p.Id == ProductId, includeValue: "Category"),
                 count = 1
             };
 
             return View(obj);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
