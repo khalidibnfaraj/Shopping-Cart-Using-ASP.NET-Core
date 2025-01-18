@@ -78,17 +78,18 @@ namespace myShop.Web.Areas.Admin.Controllers
             return View(category);
         }
         [HttpPost]
-        public IActionResult DeleteCategory(int id)
+        public IActionResult DeleteCategory(int? Id)
         {
-            Category category = unitOfWork.Category.GetFirstOrDefault(c => c.Id == id); ;
-
-            if (category == null)
+            var categoryIndb = unitOfWork.Category.GetFirstOrDefault(x => x.Id ==Id);
+            if (categoryIndb == null)
             {
                 NotFound();
             }
-            unitOfWork.Category.Remove(category);
+            unitOfWork.Category.Remove(categoryIndb);
+            //_context.Categories.Remove(categoryIndb);
+            //_context.SaveChanges();
             unitOfWork.Complete();
-            TempData["Delete"] = "Category has deleted successfully";
+            TempData["Delete"] = "Item has Deleted Successfully";
             return RedirectToAction("Index");
         }
     }

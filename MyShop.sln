@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myShop.DataAccess", "myShop.DataAccess\myShop.DataAccess.csproj", "{4311E6EC-8543-4EF8-A9EA-D43289AC9C6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "myShop.DataAccess", "myShop.DataAccess\myShop.DataAccess.csproj", "{4311E6EC-8543-4EF8-A9EA-D43289AC9C6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myShop.Entities", "myShop.Entities\myShop.Entities.csproj", "{F35BEB57-4CC0-4E9B-A6CF-2E64ACD8E484}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "myShop.Entities", "myShop.Entities\myShop.Entities.csproj", "{F35BEB57-4CC0-4E9B-A6CF-2E64ACD8E484}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myShop.Web", "myShop.Web\myShop.Web.csproj", "{108DBE9E-49BC-4189-B917-1A45C2AAC5F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "myShop.Web", "myShop.Web\myShop.Web.csproj", "{108DBE9E-49BC-4189-B917-1A45C2AAC5F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myShop.Utilities", "myShop.Utilities\myShop.Utilities.csproj", "{562F5C22-D904-4E5F-AFFC-E6084712E8AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{108DBE9E-49BC-4189-B917-1A45C2AAC5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{108DBE9E-49BC-4189-B917-1A45C2AAC5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{108DBE9E-49BC-4189-B917-1A45C2AAC5F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562F5C22-D904-4E5F-AFFC-E6084712E8AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562F5C22-D904-4E5F-AFFC-E6084712E8AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562F5C22-D904-4E5F-AFFC-E6084712E8AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562F5C22-D904-4E5F-AFFC-E6084712E8AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

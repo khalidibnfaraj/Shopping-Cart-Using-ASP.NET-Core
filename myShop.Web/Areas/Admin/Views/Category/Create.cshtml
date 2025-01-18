@@ -5,27 +5,32 @@
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 <!--<partial name="_ToasterPartial"></partial>-->
+<div class="row">
+    <div class="col-md-5">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description"></label>
+                <textarea id="mytextarea" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
 
-<form method="post">
-    <div class="mb-3">
-    <lable asp-for="Name"></lable>
-    <input asp-for="Name" class="form-control"/>
-    <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-controller="Category" asp-action="Index" class="btn btn-outline-info">Back to list</a>
+            </div>
+
+
+        </form>
+
     </div>
-    <div class="mb-3">
-        <lable asp-for="Description"></lable>
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description" class="text-danger"></span>
-
-    </div>
-    <div>
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a asp-controller="Category" asp-action="Index" class="btn btn-outline-info">Back to list</a>
-    </div>
-
-
-</form>
+</div>
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial"/>
+   
 }

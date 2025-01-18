@@ -1,0 +1,33 @@
+﻿@model ApplicationUser
+@{
+    ViewBag.PageTitle = "User Management";
+    ViewBag.CardTitle = "Delete User";
+}
+<!--<partial name="_ToasterPartial"/>-->
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="DeleteUser" method="post">
+            <input hidden asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="City"></label>
+                <input asp-for="City" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" disabled class="form-control" />
+            </div>
+            <div>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-controller="Users" asp-action="Index" class="btn btn-outline-info">Back to list</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
