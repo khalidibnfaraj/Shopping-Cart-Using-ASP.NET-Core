@@ -60,23 +60,20 @@ namespace myShop.Web.Areas.Admin.Controllers
                     string ImgfileExtension = Path.GetExtension(Imgfile.FileName);
                     string uniqueFileName = uniqueFilePath + ImgfileExtension;
                     string filePath = Path.Combine(RootPath, @"Images\Products");
-
                     string ImageFileFullPath = Path.Combine(filePath, uniqueFileName);
-
-                    using (var FileStreamPlace = new FileStream(ImageFileFullPath, FileMode.Create))
+                    var FileStreamPlace = new FileStream(ImageFileFullPath, FileMode.Create);
+                    using (FileStreamPlace)
                     {
                         Imgfile.CopyTo(FileStreamPlace);
                     }
-
                     productVM.Product.Image = @"Images\Products\" + uniqueFileName;
                 }
+                unitOfWork.Product.Add(productVM.Product);
+                unitOfWork.Complete();
+                TempData["Create"] = "Product has added successfully";
+                return RedirectToAction("Index");
+            }
 
-                    unitOfWork.Product.Add(productVM.Product);
-                    unitOfWork.Complete();
-                    TempData["Create"] = "Product has added successfully";
-                    return RedirectToAction("Index");
-                }
-            
             return View(productVM.Product);
         }
 
