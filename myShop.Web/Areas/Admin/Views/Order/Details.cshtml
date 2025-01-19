@@ -155,11 +155,11 @@
 								</div>
 							</li>
 						</ul>
-						@if (Model.OrderHeader.OrderStatus != SD.Proccessing)
+						@if (Model.OrderHeader.OrderStatus == SD.Pending || Model.OrderHeader.OrderStatus == SD.Shipped)
 						{
 							<input type="submit" asp-action="StartProccess" class="btn btn-primary" value="Start Proccess" />
 						}
-						@if (Model.OrderHeader.OrderStatus != SD.Shipped)
+						@if (Model.OrderHeader.OrderStatus == SD.Cancelled || Model.OrderHeader.OrderStatus == SD.Pending)
 						{
 							<input type="submit" asp-action="StartShip" onclick="return CheckData()" class="btn btn-success" value="Start Shipping" />
 						}
