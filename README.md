@@ -6,7 +6,7 @@ This repository contains the implementation of a **Shopping Cart Application** b
 
 ## 🎥 Demo Video  
 
-[![Watch the Video](https://img.shields.io/badge/🎥-Watch%20Demo-red)](https://your-video-link.com)
+[![Watch the Video](https://img.shields.io/badge/🎥-Watch%20Demo-red)](https://drive.google.com/file/d/1r3Y5pDGJz65EjrkI4Uv3a1i1Uf5tscBw/view?usp=drive_link)
 
 
 ---
